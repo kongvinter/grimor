@@ -1,170 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Mapas grimoire</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-        }
-        
-        .controls {
-            margin-bottom: 20px;
-        }
-        
-        .controls label {
-            font-weight: bold;
-            margin-right: 5px;
-        }
-        
-        .controls input, .controls button {
-            margin: 5px;
-            padding: 5px;
-        }
-        
-        #canvas {
-            border: 1px solid #ccc;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerador de Mapas Grimoire</title>
+  <!-- Importação do CSS principal -->
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <div class="container">
+    <!-- Controles de dimensão e seed -->
     <div class="controls">
-        <label>Largura:</label>
-        <input type="number" id="width" value="800" placeholder="Largura">
-        
-        <label>Altura:</label>
-        <input type="number" id="height" value="600" placeholder="Altura">
-        
-        <label>Seed:</label>
-        <input type="number" id="seed" value="12345" placeholder="Seed">
-        
-        <button onclick="generate()">Gerar</button>
-    </div>
-    
-    <canvas id="canvas"></canvas>
+      <label for="width">Largura:</label>
+      <input type="number" id="width" value="800" min="100" />
 
-    <script>
-        // =============================================================================
-        // CONFIGURAÇÕES BASE
-        // =============================================================================
-        
-        const TERRAIN = {
-            WATER: '#3b82f6',
-            LAND: '#22c55e',
-            MOUNTAIN: '#a3a3a3'
-        };
-        
-        // =============================================================================
-        // CLASSE BASE DO GERADOR
-        // =============================================================================
-        
-        class MapGenerator {
-            constructor(canvas) {
-                this.canvas = canvas;
-                this.ctx = canvas.getContext('2d');
-                this.width = 800;
-                this.height = 600;
-                this.seed = 12345;
-            }
-            
-            // Gerador de números aleatórios com seed
-            random() {
-                this.seed = (this.seed * 9301 + 49297) % 233280;
-                return this.seed / 233280;
-            }
-            
-            // Ruído simples
-            noise(x, y) {
-                const n = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
-                return (n - Math.floor(n));
-            }
-            
-            // Gerar mapa de altura
-            generateHeightMap() {
-                const heightMap = [];
-                
-                for (let x = 0; x < this.width; x++) {
-                    heightMap[x] = [];
-                    for (let y = 0; y < this.height; y++) {
-                        let height = 0;
-                        
-                        // Camadas de ruído
-                        height += this.noise(x * 0.01, y * 0.01) * 0.5;
-                        height += this.noise(x * 0.02, y * 0.02) * 0.25;
-                        height += this.noise(x * 0.04, y * 0.04) * 0.125;
-                        
-                        // Efeito de borda (mais água nas bordas)
-                        const edgeX = Math.min(x / this.width, (this.width - x) / this.width);
-                        const edgeY = Math.min(y / this.height, (this.height - y) / this.height);
-                        const edgeFactor = Math.min(edgeX, edgeY) * 2;
-                        
-                        height *= edgeFactor;
-                        heightMap[x][y] = Math.max(0, Math.min(1, height));
-                    }
-                }
-                
-                return heightMap;
-            }
-            
-            // Determinar tipo de terreno
-            getTerrainType(height) {
-                if (height < 0.3) return TERRAIN.WATER;
-                if (height > 0.7) return TERRAIN.MOUNTAIN;
-                return TERRAIN.LAND;
-            }
-            
-            // Renderizar mapa
-            render(heightMap) {
-                this.canvas.width = this.width;
-                this.canvas.height = this.height;
-                
-                for (let x = 0; x < this.width; x++) {
-                    for (let y = 0; y < this.height; y++) {
-                        const height = heightMap[x][y];
-                        const terrainColor = this.getTerrainType(height);
-                        
-                        this.ctx.fillStyle = terrainColor;
-                        this.ctx.fillRect(x, y, 1, 1);
-                    }
-                }
-            }
-            
-            // Método principal
-            generate(width, height, seed) {
-                this.width = width;
-                this.height = height;
-                this.seed = seed;
-                
-                const heightMap = this.generateHeightMap();
-                this.render(heightMap);
-            }
-        }
-        
-        // =============================================================================
-        // INICIALIZAÇÃO
-        // =============================================================================
-        
-        let generator;
-        
-        function init() {
-            const canvas = document.getElementById('canvas');
-            generator = new MapGenerator(canvas);
-            generate();
-        }
-        
-        function generate() {
-            const width = parseInt(document.getElementById('width').value);
-            const height = parseInt(document.getElementById('height').value);
-            const seed = parseInt(document.getElementById('seed').value);
-            
-            generator.generate(width, height, seed);
-        }
-        
-        // Inicializar quando carregar
-        window.onload = init;
-    </script>
+      <label for="height">Altura:</label>
+      <input type="number" id="height" value="600" min="100" />
+
+      <label for="seed">Seed:</label>
+      <input type="number" id="seed" value="12345" />
+
+      <button id="generateBtn">Gerar</button>
+    </div>
+
+    <!-- Container responsivo para o canvas -->
+    <div class="map-container">
+      <canvas id="canvas"></canvas>
+    </div>
+  </div>
+
+  <!-- Carregamento do script de inicialização como módulo ES6 -->
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
