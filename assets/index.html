@@ -5,12 +5,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gerador de Mapas Grimoire</title>
-  <!-- Importação do CSS principal -->
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <div class="container">
-    <!-- Controles de dimensão e seed -->
     <div class="controls">
       <label for="width">Largura:</label>
       <input type="number" id="width" value="800" min="100" />
@@ -23,14 +21,10 @@
 
       <button id="generateBtn">Gerar</button>
     </div>
-
-    <!-- Container responsivo para o canvas -->
     <div class="map-container">
       <canvas id="canvas"></canvas>
     </div>
   </div>
-
-  <!-- Carregamento do script de inicialização como módulo ES6 -->
   <script type="module" src="js/main.js"></script>
 </body>
 </html>
