@@ -33,7 +33,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           # Pode usar GITHUB_TOKEN se tiver permissão Read & Write
-          github_token: ${{ secrets.PAT_TOKEN }}  # ou ${{ secrets.GITHUB_TOKEN }}
+         github_token: ${{ secrets.GITHUB_TOKEN }}  # ou ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs  # ou ./ se seu index.html estiver na raiz
           publish_branch: gh-pages  # branch onde o site será publicado
           keep_files: false         # remove arquivos antigos antes de publicar
