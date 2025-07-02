@@ -1,1 +1,16 @@
-
+<link rel="stylesheet" href="assets/css/style.css">
+<div class="container">
+  <div class="controls">
+    <label for="width">Largura:</label>
+    <input id="width" type="number" value="800" min="100" max="2000">
+    <label for="height">Altura:</label>
+    <input id="height" type="number" value="600" min="100" max="2000">
+    <label for="seed">Seed:</label>
+    <input id="seed" type="number">
+    <button id="generateBtn">Gerar</button>
+  </div>
+  <div class="map-container">
+    <canvas id="canvas"></canvas>
+  </div>
+</div>
+<script type="module" src="assets/js/main.js"></script>
