@@ -1,30 +1,23 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gerador de Mapas Grimoire</title>
-  <link rel="stylesheet" href="css/styles.css" />
-</head>
-<body>
-  <div class="container">
-    <div class="controls">
-      <label for="width">Largura:</label>
-      <input type="number" id="width" value="800" min="100" />
+---
+layout: default
+title: "Gerador de Mapas Grimoire"
+---
 
-      <label for="height">Altura:</label>
-      <input type="number" id="height" value="600" min="100" />
+<div class="container">
+  <div class="controls">
+    <label for="width">Largura:</label>
+    <input type="number" id="width" value="800" min="100" />
 
-      <label for="seed">Seed:</label>
-      <input type="number" id="seed" value="12345" />
+    <label for="height">Altura:</label>
+    <input type="number" id="height" value="600" min="100" />
 
-      <button id="generateBtn">Gerar</button>
-    </div>
-    <div class="map-container">
-      <canvas id="canvas"></canvas>
-    </div>
+    <label for="seed">Seed:</label>
+    <input type="number" id="seed" value="12345" />
+
+    <button id="generateBtn">Gerar</button>
   </div>
-  <script type="module" src="js/main.js"></script>
-</body>
-</html>
+
+  <div class="map-container">
+    <canvas id="canvas"></canvas>
+  </div>
+</div>
