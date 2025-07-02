@@ -4,12 +4,9 @@
   --color-water:    #3b82f6;
   --color-land:     #22c55e;
   --color-mountain: #a3a3a3;
-
- 
   --shadow-light:   rgba(0, 0, 0, 0.1);
   --transition:     0.3s ease-in-out;
 }
-
 
 * {
   margin: 0;
@@ -25,7 +22,6 @@ body {
   padding: 20px;
 }
 
-/* 3. Container geral */
 .container {
   display: flex;
   flex-direction: column;
@@ -33,7 +29,6 @@ body {
   max-width: 1200px;
   margin: 0 auto;
 }
-
 
 .controls {
   display: flex;
@@ -88,7 +83,6 @@ body {
   width: 100%;
   height: auto;
 }
-
 
 @media (min-width: 768px) {
   .controls {
