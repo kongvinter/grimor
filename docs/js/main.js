@@ -1,4 +1,3 @@
-// Inicialização - usa variáveis globais definidas em mapGenerator.js
 document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('canvas');
     const btnGenerate = document.getElementById('generateBtn');
@@ -27,11 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
             inpSeed.value = seed;
         }
 
-        // Configurar canvas
+        
         canvas.width = width;
         canvas.height = height;
 
-        // Gerar mapa usando as classes globais
+        
         const generator = new window.MapGenerator({
             width,
             height,
