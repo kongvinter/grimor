@@ -1,4 +1,3 @@
-// Implementação simplificada do Simplex Noise
 class SimplexNoise {
     constructor(seed) {
         this.seed = typeof seed === 'string' ? this.hashString(seed) : (seed || Math.random());
@@ -94,7 +93,7 @@ class SimplexNoise {
     }
 }
 
-// Paletas de cores - disponível globalmente
+
 window.palettes = {
     default: {
         apply(height) {
@@ -122,7 +121,7 @@ window.palettes = {
     }
 };
 
-// Classe MapGenerator - disponível globalmente
+
 window.MapGenerator = class MapGenerator {
     constructor({ width, height, seed, palette }) {
         this.width = width;
@@ -153,7 +152,7 @@ window.MapGenerator = class MapGenerator {
                     frequency *= lacunarity;
                 }
                 
-                // Aplicar fade nas bordas para criar formato de ilha
+                
                 const edgeX = Math.min(x / this.width, (this.width - x) / this.width);
                 const edgeY = Math.min(y / this.height, (this.height - y) / this.height);
                 const edgeFactor = Math.min(edgeX, edgeY) * 2;
