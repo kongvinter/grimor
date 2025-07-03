@@ -7,10 +7,15 @@
     <input id="height" type="number" value="600" min="100" max="2000">
     <label for="seed">Seed:</label>
     <input id="seed" type="number">
+    <label for="palette">Paleta:</label>
+    <select id="palette">
+      <option value="default">Padrão</option>
+      <option value="bw">Preto & Branco</option>
+    </select>
     <button id="generateBtn">Gerar</button>
   </div>
   <div class="map-container">
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" width="800" height="600"></canvas>
   </div>
 </div>
 <script type="module" src="assets/js/main.js"></script>

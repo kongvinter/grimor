@@ -86,28 +86,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const inpSeed = document.getElementById('seed');
 
   function generateMap() {
-    const width = parseInt(inpWidth.value, 10) || 800;
-    const height = parseInt(inpHeight.value, 10) || 600;
-    const seed = parseInt(inpSeed.value, 10) || Date.now();
+  let width = parseInt(inpWidth.value, 10);
+  let height = parseInt(inpHeight.value, 10);
+  let seed = parseInt(inpSeed.value, 10);
 
-    canvas.width = width;
-    canvas.height = height;
 
-    const generator = new MapGenerator({
-      width,
-      height,
-      seed,
-      palette: defaultPalette
-    });
+  if (isNaN(width) || width < 100 || width > 2000) width = 800;
+  if (isNaN(height) || height < 100 || height > 2000) height = 600;
+  if (isNaN(seed)) {
+  seed = Date.now();
+  inpSeed.value = seed;
+}
+  inpWidth.value = width;
+  inpHeight.value = height;
+  inpSeed.value = seed;
 
-    generator.generate({
-      width,
-      height,
-      seed,
-      octaves: 4,
-      persistence: 0.5,
-      lacunarity: 2
-    });
+  canvas.width = width;
+  canvas.height = height;
+
+  const generator = new MapGenerator({
+    width,
+    height,
+    seed,
+    palette: defaultPalette
+  });
+
+  generator.generate({
+    width,
+    height,
+    seed,
+    octaves: 4,
+    persistence: 0.5,
+    lacunarity: 2
+  });
   }
 
   btnGenerate.addEventListener('click', generateMap);
