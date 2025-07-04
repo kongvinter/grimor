@@ -52,8 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnGenerate.addEventListener('click', generateMap);
     
     // Gerar seed aleatória se campo estiver vazio
-    if (!inpSeed.value) {
-        inpSeed.value = Math.floor(Math.random() * 1000000);
+    const seed = Math.floor(Math.random() * 1e9);
     }
     
     // Gerar mapa inicial
