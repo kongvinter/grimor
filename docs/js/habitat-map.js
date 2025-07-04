@@ -210,3 +210,4 @@ class HabitatFragmentationMap {
         this.render(heightMap, fragmentMap, corridorMap, edgeMap, corridorBufferMap);
     }
 }
+    window.MapGenerator = HabitatFragmentationMap;
