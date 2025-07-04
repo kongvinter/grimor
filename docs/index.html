@@ -1,21 +1,66 @@
-<link rel="stylesheet" href="assets/css/style.css">
-<div class="container">
-  <div class="controls">
-    <label for="width">Largura:</label>
-    <input id="width" type="number" value="800" min="100" max="2000">
-    <label for="height">Altura:</label>
-    <input id="height" type="number" value="600" min="100" max="2000">
-    <label for="seed">Seed:</label>
-    <input id="seed" type="number">
-    <label for="palette">Paleta:</label>
-    <select id="palette">
-      <option value="default">Padrão</option>
-      <option value="bw">Preto & Branco</option>
-    </select>
-    <button id="generateBtn">Gerar</button>
-  </div>
-  <div class="map-container">
-    <canvas id="canvas" width="800" height="600"></canvas>
-  </div>
-</div>
-<script type="module" src="assets/js/main.js"></script>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Mapas com Fragmentação de Habitats</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerador de Mapas com Fragmentação de Habitats</h1>
+        
+        <div class="controls">
+            <h2>Configurações Básicas</h2>
+            <label>Largura: <input id="width" type="number" value="800" min="100" max="2000"></label>
+            <label>Altura: <input id="height" type="number" value="600" min="100" max="2000"></label>
+            <label>Seed: <input id="seed" type="number"></label>
+            <label>Paleta: 
+                <select id="palette">
+                    <option value="default">Padrão</option>
+                    <option value="bw">Preto & Branco</option>
+                    <option value="ecological">Ecológica</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="controls">
+            <h2>Parâmetros de Fragmentação</h2>
+            <label>Nível de Fragmentação: <input id="fragmentationLevel" type="range" min="0" max="100" value="30"> <span id="fragmentationValue">30%</span></label>
+            <label>Densidade de Corredores: <input id="corridorDensity" type="range" min="0" max="100" value="20"> <span id="corridorValue">20%</span></label>
+            <label>Efeito de Borda: <input id="edgeEffect" type="range" min="0" max="50" value="15"> <span id="edgeValue">15px</span></label>
+            <label>Tipo de Habitat: 
+                <select id="habitatType">
+                    <option value="forest">Floresta</option>
+                    <option value="grassland">Campo</option>
+                    <option value="wetland">Zona Úmida</option>
+                    <option value="mixed">Misto</option>
+                </select>
+            </label>
+        </div>
+
+        <button id="generateBtn">Gerar Mapa</button>
+
+        <div class="map-container">
+            <canvas id="canvas" width="800" height="600"></canvas>
+        </div>
+
+        <div class="legend">
+            <h2>Legenda</h2>
+            <div><span class="color" style="background: #1e40af;"></span> Água Profunda</div>
+            <div><span class="color" style="background: #3b82f6;"></span> Água Rasa</div>
+            <div><span class="color" style="background: #22c55e;"></span> Habitat Principal</div>
+            <div><span class="color" style="background: #16a34a;"></span> Habitat Secundário</div>
+            <div><span class="color" style="background: #84cc16;"></span> Corredor Ecológico</div>
+            <div><span class="color" style="background: #fbbf24;"></span> Zona de Transição</div>
+            <div><span class="color" style="background: #ef4444;"></span> Área Fragmentada</div>
+            <div><span class="color" style="background: #78716c;"></span> Montanha</div>
+        </div>
+    </div>
+
+    <script src="simplex-noise.js"></script>
+    <script src="palettes.js"></script>
+    <script src="habitat-map.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
