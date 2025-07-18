@@ -16,30 +16,38 @@ title: "Página Inicial"
         
         <div class="controls">
             <h2>Configurações Básicas</h2>
-            <label>Largura: <input id="width" type="number" value="800" min="100" max="2000"></label>
-            <label>Altura: <input id="height" type="number" value="600" min="100" max="2000"></label>
-            <label>Paleta: 
-                <select id="palette">
-                    <option value="default">Padrão</option>
-                    <option value="bw">Preto & Branco</option>
-                    <option value="ecological">Ecológica</option>
-                </select>
-            </label>
+            <label for="width">Largura (px):</label>
+            <input id="width" type="number" value="800" min="100" max="2000">
+            
+            <label for="height">Altura (px):</label>
+            <input id="height" type="number" value="600" min="100" max="2000">
+            
+            <label for="palette">Paleta:</label>
+            <select id="palette">
+                <option value="default">Padrão</option>
+                <option value="bw">Preto & Branco</option>
+                <option value="ecological">Ecológica</option>
+            </select>
         </div>
 
         <div class="controls">
             <h2>Parâmetros de Fragmentação</h2>
-            <label>Nível de Fragmentação: <input id="fragmentationLevel" type="range" min="0" max="100" value="30"> <span id="fragmentationValue">30%</span></label>
-            <label>Densidade de Corredores: <input id="corridorDensity" type="range" min="0" max="100" value="20"> <span id="corridorValue">20%</span></label>
-            <label>Efeito de Borda: <input id="edgeEffect" type="range" min="0" max="50" value="15"> <span id="edgeValue">15px</span></label>
-            <label>Tipo de Habitat: 
-                <select id="habitatType">
-                    <option value="forest">Floresta</option>
-                    <option value="grassland">Campo</option>
-                    <option value="wetland">Zona Úmida</option>
-                    <option value="mixed">Misto</option>
-                </select>
-            </label>
+            <label for="fragmentationLevel">Nível de Fragmentação (%):</label>
+            <input id="fragmentationLevel" type="number" value="30" min="0" max="100" step="1">%
+            
+            <label for="corridorDensity">Densidade de Corredores (%):</label>
+            <input id="corridorDensity" type="number" value="20" min="0" max="100" step="1">%
+            
+            <label for="edgeEffect">Efeito de Borda (px):</label>
+            <input id="edgeEffect" type="number" value="15" min="0" step="1">px
+            
+            <label for="habitatType">Tipo de Habitat:</label>
+            <select id="habitatType">
+                <option value="forest">Floresta</option>
+                <option value="grassland">Campo</option>
+                <option value="wetland">Zona Úmida</option>
+                <option value="mixed">Misto</option>
+            </select>
         </div>
 
         <button id="generateBtn">Gerar Mapa</button>
@@ -61,9 +69,55 @@ title: "Página Inicial"
         </div>
     </div>
 
-       <script src="js/simplex-noise.js"></script>
-       <script src="js/palettes.js"></script>
-       <script src="js/habitat-map.js"></script>
-       <script src="js/main.js"></script>
+    <script src="js/simplex-noise.js"></script>
+    <script src="js/palettes.js"></script>
+    <script src="js/habitat-map.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const canvas = document.getElementById('canvas');
+        const btnGenerate = document.getElementById('generateBtn');
+        const inpWidth = document.getElementById('width');
+        const inpHeight = document.getElementById('height');
+        const selPalette = document.getElementById('palette');
+        const inpFrag = document.getElementById('fragmentationLevel');
+        const inpDensity = document.getElementById('corridorDensity');
+        const inpEdge = document.getElementById('edgeEffect');
+        const selHabitat = document.getElementById('habitatType');
+
+        function generateMap() {
+            let width = parseInt(inpWidth.value, 10);
+            let height = parseInt(inpHeight.value, 10);
+            let seed = Date.now();
+            const paletteType = selPalette.value;
+            const fragmentation = parseFloat(inpFrag.value) / 100;
+            const corridorDensity = parseFloat(inpDensity.value) / 100;
+            const edgeEffect = parseInt(inpEdge.value, 10);
+            const habitat = selHabitat.value;
+
+            if (isNaN(width) || width < 100 || width > 2000) width = 800;
+            if (isNaN(height) || height < 100 || height > 2000) height = 600;
+
+            canvas.width = width;
+            canvas.height = height;
+
+            const generator = new window.MapGenerator({
+                width, height, seed,
+                palette: window.palettes[paletteType] || window.palettes.default,
+                fragmentation, corridorDensity, edgeEffect, habitat
+            });
+
+            generator.generate({
+                width, height, seed,
+                octaves: 4,
+                persistence: 0.5,
+                lacunarity: 2
+            });
+        }
+
+        btnGenerate.addEventListener('click', generateMap);
+        generateMap();
+    });
+    </script>
 </body>
 </html>
+
